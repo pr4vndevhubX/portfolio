@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Timeline from '../../components/Timeline.astro';
+import { SITE } from '../../consts';
+import { t } from '../../i18n';
+
+const experience = [
+  {
+    dateLabel: 'Nov 2025 — Present',
+    title: 'AI/ML Engineer',
+    description: 'Krya Solutions Pvt. Ltd. — Chennai, India',
+    badge: 'Current',
+    bullets: [
+      'Engineered an AI-driven SOC automation platform using LangGraph and CrewAI multi-agent workflows, processing 1,000+ live SIEM alerts/day.',
+      'Automated L1 alert triage and reduced L2 investigation workload through multi-agent threat analysis and decision workflows.',
+      'Built multi-agent IOC extraction pipelines that reduced per-alert investigation time from hours to minutes by correlating indicators across multiple threat-intelligence sources.',
+      'Developed a RAG pipeline using FAISS to ground LLM-generated threat explanations in retrieved threat-intelligence data.',
+      'Fine-tuned a local LLM for security-alert triage, enabling sensitive alert analysis without relying on external cloud inference.',
+      'Deployed AI workflows as containerized FastAPI services using Docker and integrated them into the live security monitoring stack.',
+    ],
+    tags: ['LangGraph', 'CrewAI', 'RAG', 'FAISS', 'FastAPI', 'Docker'],
+  },
+  {
+    dateLabel: 'Jul 2025 — Oct 2025',
+    title: 'AI/ML Intern',
+    description: 'Krya Solutions Pvt. Ltd. — Chennai, India',
+    bullets: [
+      'Deployed a SIEM environment end-to-end, covering log collection, alert generation, and event processing.',
+      'Collected, cleaned, and normalized raw security telemetry into structured ML-ready datasets for anomaly detection and AI analysis.',
+      'Trained an Isolation Forest model for unsupervised behavioral anomaly detection on normalized security logs.',
+      'Built data pipelines feeding structured security telemetry into early LLM and ML prototypes for threat-pattern analysis.',
+      'Researched applications of AI and ML in SOC operations, exploring approaches to reduce manual investigation effort.',
+    ],
+    tags: ['SIEM', 'Isolation Forest', 'Anomaly Detection', 'ML Pipelines'],
+  },
+  {
+    dateLabel: 'Mar 2024 — Jun 2024',
+    title: 'Intern',
+    description: 'Centillion Labs — Tamil Nadu, India',
+    bullets: [
+      'Contributed to Azure cloud resource provisioning and deployment automation, reducing manual environment setup time by ~25%.',
+      'Supported DevOps automation workflows and system performance monitoring across environments, improving deployment reliability.',
+    ],
+    tags: ['Azure', 'DevOps', 'Automation'],
+  },
+];
+---
+
+<BaseLayout title={t('experience.title')} description={`Journey — ${SITE.title}, AI/ML Engineer.`}>
+  <section class="page-head section">
+    <p class="eyebrow">{t('experience.eyebrow')}</p>
+    <h1>Journey.</h1>
+    <p class="lead">Roles building production AI systems — from SOC automation to applied ML.</p>
+  </section>
+
+  <section class="section" aria-label={t('experience.listLabel')}>
+    <Timeline items={experience} />
+  </section>
+</BaseLayout>

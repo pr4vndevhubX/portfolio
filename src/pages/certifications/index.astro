@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Timeline from '../../components/Timeline.astro';
+import { SITE } from '../../consts';
+import { t } from '../../i18n';
+
+const certifications = [
+  {
+    dateLabel: '2023',
+    title: 'Machine Learning',
+    description: 'University of London, via Coursera.',
+  },
+  {
+    dateLabel: '2023',
+    title: 'Data Science',
+    description: 'SkillVertex.',
+  },
+];
+---
+
+<BaseLayout title={t('certifications.title')} description={`Certifications — ${SITE.title}.`}>
+  <section class="page-head section">
+    <p class="eyebrow">{t('certifications.eyebrow')}</p>
+    <h1>Certifications.</h1>
+    <p class="lead">Coursework completed alongside hands-on project work.</p>
+  </section>
+
+  <section class="section" aria-label={t('certifications.listLabel')}>
+    <Timeline items={certifications} />
+  </section>
+</BaseLayout>

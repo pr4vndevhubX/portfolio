@@ -1,0 +1,117 @@
+---
+// X / LinkedIn / Copy-link buttons for a blog post. Share URLs are built
+// server-side from the absolute post URL; the copy button is enhanced
+// client-side (progressive enhancement — the two share links work with JS off).
+import { t } from '../i18n';
+
+interface Props {
+  url: string;
+  title: string;
+}
+
+const { url, title } = Astro.props;
+
+const xHref = `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+
+const ICONS = {
+  x: '<path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/>',
+  linkedin:
+    '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 11v5"/><path d="M8 8v.01"/><path d="M12 16v-5"/><path d="M16 16v-3a2 2 0 0 0 -4 0"/>',
+  link: '<path d="M9 15l6 -6"/><path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"/><path d="M13 18l-.463 .536a5 5 0 0 1 -7.071 -7.072l.534 -.464"/>',
+  check: '<path d="M5 12l5 5l10 -10"/>',
+} as const;
+---
+
+<div class="share-buttons" role="group" aria-label={t('share.label')}>
+  <span class="share-buttons-label">{t('share.label')}</span>
+  <a class="share-button" href={xHref} target="_blank" rel="noopener noreferrer">
+    <svg
+      viewBox="0 0 24 24"
+      width="14"
+      height="14"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      set:html={ICONS.x}
+    />
+    <span>X</span>
+  </a>
+  <a class="share-button" href={linkedinHref} target="_blank" rel="noopener noreferrer">
+    <svg
+      viewBox="0 0 24 24"
+      width="14"
+      height="14"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      set:html={ICONS.linkedin}
+    />
+    <span>LinkedIn</span>
+  </a>
+  <button
+    class="share-button"
+    type="button"
+    data-share-copy
+    data-url={url}
+    aria-label={t('share.copy')}
+  >
+    <svg
+      class="share-copy-icon share-copy-icon-idle"
+      viewBox="0 0 24 24"
+      width="14"
+      height="14"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      set:html={ICONS.link}
+    />
+    <svg
+      class="share-copy-icon share-copy-icon-done"
+      viewBox="0 0 24 24"
+      width="14"
+      height="14"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      set:html={ICONS.check}
+    />
+    <span class="share-copy-text share-copy-text-idle">Link</span>
+    <span class="share-copy-text share-copy-text-done">Copied</span>
+  </button>
+</div>
+
+<script>
+  const enhance = () => {
+    for (const button of document.querySelectorAll('[data-share-copy]')) {
+      if (!(button instanceof HTMLButtonElement) || button.dataset.enhanced) continue;
+      button.dataset.enhanced = 'true';
+      button.addEventListener('click', async () => {
+        const url = button.dataset.url;
+        if (!url) return;
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch {
+          return;
+        }
+        button.classList.add('is-copied');
+        window.setTimeout(() => button.classList.remove('is-copied'), 1600);
+      });
+    }
+  };
+
+  enhance();
+  document.addEventListener('astro:after-swap', enhance);
+</script>

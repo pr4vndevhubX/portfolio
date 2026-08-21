@@ -1,0 +1,29 @@
+---
+// Ported from BracoZS/astro-starter-portfolio's WorkRow.astro — same compact
+// row layout (date · title+description · tech+arrow), rebuilt in plain CSS
+// against Keel's field names (title/description/tech/publishDate) instead of
+// Tailwind utility classes, so it matches the rest of the theme's markup style.
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../lib/url';
+import { formatDate } from '../i18n';
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+}
+
+const { entry } = Astro.props;
+const { title, description, tech, publishDate } = entry.data;
+const stamp = formatDate(publishDate, 'short');
+---
+
+<a href={withBase(`/projects/${entry.id}/`)} class="project-row">
+  <span class="project-row-date">{stamp}</span>
+  <span class="project-row-main">
+    <span class="project-row-title">{title}</span>
+    <span class="project-row-desc">{description}</span>
+  </span>
+  <span class="project-row-tech">
+    {tech.slice(0, 2).join(' · ')}
+  </span>
+  <span class="project-row-arrow" aria-hidden="true">→</span>
+</a>

@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Timeline from '../../components/Timeline.astro';
+import { SITE } from '../../consts';
+import { t } from '../../i18n';
+
+const publications = [
+  {
+    dateLabel: '2025',
+    title: 'Detection of Voice Pathologies and Classification using Deep Learning in Healthcare',
+    description:
+      'IEEE ICIRCA 2025 — peer-reviewed research; 94.02% classification accuracy on a dual-branch deep learning model with ECAPA-TDNN speaker embeddings.',
+    href: 'https://ieeexplore.ieee.org/abstract/document/11089865',
+  },
+];
+---
+
+<BaseLayout title={t('publications.title')} description={`Peer-reviewed research — ${SITE.title}.`}>
+  <section class="page-head section">
+    <p class="eyebrow">{t('publications.eyebrow')}</p>
+    <h1>Publications.</h1>
+    <p class="lead">Peer-reviewed research alongside the applied engineering work.</p>
+  </section>
+
+  <section class="section" aria-label={t('publications.listLabel')}>
+    <Timeline items={publications} />
+  </section>
+</BaseLayout>

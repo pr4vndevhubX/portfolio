@@ -1,0 +1,114 @@
+---
+// Structure ported from erlandv/case's contact.astro: a zone-based, email-first
+// layout rather than a form — the primary CTA is the email address itself.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, SOCIAL_LINKS } from '../consts';
+import { t } from '../i18n';
+
+const email = 'praveenkumarsuresh.official@gmail.com';
+const elsewhere = SOCIAL_LINKS.filter((link) => link.icon !== 'email');
+---
+
+<BaseLayout title={t('contact.title')} description={`Get in touch — ${SITE.title}.`}>
+  <main class="contact-page section">
+    <section class="primary-zone">
+      <h1>Let's Talk</h1>
+      <a href={`mailto:${email}`} class="email-link">{email}</a>
+      <p class="context">I read every email. Expect a reply within a few days.</p>
+    </section>
+
+    {
+      elsewhere.length > 0 && (
+        <section class="secondary-zone">
+          <h2>Elsewhere</h2>
+          <div class="social-links-inline">
+            {elsewhere.map((link, index) => (
+              <>
+                <a href={link.href} target="_blank" rel="noopener noreferrer">
+                  {link.label}
+                </a>
+                {index < elsewhere.length - 1 && <span class="separator">·</span>}
+              </>
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </main>
+</BaseLayout>
+
+<style>
+  .contact-page {
+    max-width: 40rem;
+  }
+
+  .primary-zone {
+    margin-bottom: calc(var(--baseline) * 3);
+  }
+
+  .primary-zone h1 {
+    margin-bottom: calc(var(--baseline) * 1.25);
+    color: var(--color-muted);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .email-link {
+    display: block;
+    margin-bottom: calc(var(--baseline) * 1.25);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    background-image: none;
+    transition: color 180ms ease;
+  }
+
+  .email-link:hover {
+    color: var(--color-accent);
+  }
+
+  .context {
+    color: var(--color-muted);
+    font-family: var(--font-serif-body);
+  }
+
+  .secondary-zone {
+    padding-top: calc(var(--baseline) * 1.5);
+    border-top: var(--hairline);
+  }
+
+  .secondary-zone h2 {
+    margin-bottom: calc(var(--baseline) * 0.65);
+    color: var(--color-muted);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .social-links-inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .social-links-inline a {
+    color: var(--color-text);
+    background-image: none;
+  }
+
+  .social-links-inline a:hover {
+    color: var(--color-accent);
+  }
+
+  .separator {
+    color: var(--color-muted);
+    user-select: none;
+  }
+</style>

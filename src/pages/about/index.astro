@@ -1,0 +1,74 @@
+---
+// The prose on this page is placeholder copy — rewrite it as your own. It is
+// intentionally *not* in `src/i18n/`: the dictionary holds UI chrome, so a
+// translator isn't handed someone else's biography, and you don't have to open
+// a dictionary file to edit your own about page.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../consts';
+import { t } from '../../i18n';
+---
+
+<BaseLayout
+  title={t('about.title')}
+  description={`About ${SITE.title} — AI/ML Engineer specializing in LLMs and Agentic AI.`}
+>
+  <section class="page-head section">
+    <p class="eyebrow">{t('about.eyebrow')}</p>
+    <h1>AI/ML Engineer building agentic systems that ship.</h1>
+    <p class="lead">
+      I design and deploy LLM-powered automation — multi-agent workflows, RAG pipelines, and
+      ML-driven decision systems — for real production environments, not just demos.
+    </p>
+  </section>
+
+  <section class="section prose-grid">
+    <div>
+      <p class="eyebrow">Profile</p>
+      <h2>Agentic AI, applied to real operational problems.</h2>
+    </div>
+    <div class="prose-stack">
+      <p>
+        I'm an AI/ML Engineer at Krya Solutions, where I build an AI-driven SOC automation platform
+        using LangGraph and CrewAI multi-agent workflows — processing 1,000+ live security alerts a
+        day, automating triage, and cutting per-alert investigation time from hours to minutes with
+        RAG pipelines grounded in real threat-intelligence data.
+      </p>
+      <p>
+        Outside work, I build agentic systems end to end on my own: Rolescout, a job-search
+        assistant with a LangGraph ReAct agent and a 5-provider LLM router; a dual-branch deep
+        learning model for voice pathology detection, published as peer-reviewed research at IEEE
+        ICIRCA 2025; and a CrewAI marketing crew that runs research through content generation as
+        one pipeline.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-label={t('about.ledgerLabel')}>
+    <div class="about-ledger">
+      <article>
+        <span>01</span>
+        <h3>Current focus</h3>
+        <p>
+          AI-driven SOC automation — multi-agent workflows, RAG pipelines, and LLM fine-tuning for
+          security-alert triage.
+        </p>
+      </article>
+      <article>
+        <span>02</span>
+        <h3>Background</h3>
+        <p>
+          B.Tech in Artificial Intelligence &amp; Data Science. Published IEEE researcher. Hands-on
+          with LangChain, LangGraph, CrewAI, PyTorch, TensorFlow, and FastAPI.
+        </p>
+      </article>
+      <article>
+        <span>03</span>
+        <h3>Contact</h3>
+        <p>
+          Open to AI/ML Engineering, LLM Engineering, and applied AI Research roles — reach out on
+          the <a href="/contact/">contact page</a>.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
